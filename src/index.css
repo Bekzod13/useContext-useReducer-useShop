@@ -60,6 +60,9 @@ a{
   align-items: center;
   font-size: 12px;
 }
+input{
+  padding: 5px;
+}
 
 /* products */
 .products{

@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Products from './components/Products';
 import Cart from './components/Cart';
 import { ShopProvider } from './contextApi/context';
+import StateContext from './contextApi/stateContext';
 
 
 function App() {
@@ -15,22 +16,25 @@ function App() {
     Api.get('/').then(res=>{
       setProducts(res.data)
     })
-  }, [])
+  }, []);
+  const [key, setKey] = useState('');
 
   return (
-    <ShopProvider>
-      <BrowserRouter>
-        <Navbar/>
-        <Routes>
-          <Route path="/" element={
-            <Products products={products} />
-          } />
-          <Route path="/cart" element={
-            <Cart />
-          } />
-        </Routes>
-      </BrowserRouter>
-    </ShopProvider>
+    <StateContext.Provider value={{key, setKey}}>
+      <ShopProvider>
+        <BrowserRouter>
+          <Navbar/>
+          <Routes>
+            <Route path="/" element={
+              <Products products={products} />
+            } />
+            <Route path="/cart" element={
+              <Cart />
+            } />
+          </Routes>
+        </BrowserRouter>
+      </ShopProvider>
+    </StateContext.Provider>
   );
 }
 
